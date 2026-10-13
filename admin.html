@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Module</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header><h1>Admin Dashboard</h1></header>
+
+    <div class="container">
+        <h2>Manage Library Books</h2>
+        <input type="text" id="book" placeholder="Enter book name">
+        <button onclick="addBook()">Add Book</button>
+        <ul id="books"></ul>
+        <a href="index.html" class="btn">Home</a>
+    </div>
+
+    <script>
+        let books = JSON.parse(localStorage.getItem("books")) || [];
+
+        function displayBooks() {
+            document.getElementById("books").innerHTML = "";
+            books.forEach(book => {
+                let li = document.createElement("li");
+                li.textContent = book;
+                document.getElementById("books").appendChild(li);
+            });
+        }
+
+        function addBook() {
+            let book = document.getElementById("book").value.trim();
+            if (book) {
+                books.push(book);
+                localStorage.setItem("books", JSON.stringify(books));
+                document.getElementById("book").value = "";
+                displayBooks();
+            }
+        }
+
+        displayBooks();
+    </script>
+</body>
+</html>
